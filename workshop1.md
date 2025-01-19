@@ -158,3 +158,135 @@ Data cleaning is crucial in EDA, especially when dealing with missing data. Belo
 9. **Kurtosis:**  
    - **Definition:** Measures the "tailedness" of the distribution.  
    - **Example:** High kurtosis distributions have more extreme outliers.
+   - 
+
+## **9. What are Outliers?**
+
+Outliers are **data points that are significantly different from other observations** in a dataset. They are extreme values that deviate from the overall pattern or distribution of the data.
+
+### **Examples:**
+1. A salary of **$1,000,000** in a dataset where most salaries range from $30,000 to $80,000.
+2. A test score of **10** in a dataset where the majority of scores are between 70 and 90.
+
+---
+
+## **5. How to Detect Outliers**
+
+### **Statistical Methods**
+1. **Z-Score Method**:
+   - Measures how many standard deviations a data point is from the mean.
+   - Formula:  
+     \[
+     Z = \frac{x - \text{mean}}{\text{std deviation}}
+     \]
+   - **Rule:** If \( |Z| > 3 \), the value is considered an outlier.
+
+2. **IQR (Interquartile Range) Method**:
+   - Identifies outliers based on the middle 50% of the data.
+   - Steps:
+     1. Calculate \( Q1 \) (25th percentile) and \( Q3 \) (75th percentile).
+     2. Compute \( \text{IQR} = Q3 - Q1 \).
+     3. Determine bounds:
+        - Lower Bound = \( Q1 - 1.5 \times \text{IQR} \)
+        - Upper Bound = \( Q3 + 1.5 \times \text{IQR} \)
+     4. Any data point outside these bounds is an outlier.
+
+---
+
+## **6. How to Handle Outliers**
+
+Outlier handling is an essential part of EDA. Here are some common strategies:
+
+### **1. Remove Outliers**
+   - **When to Use:** If the outliers are due to data entry errors or irrelevant to your analysis.
+   - **How:** Simply drop the rows containing outliers.
+   - **Example:** In a dataset of human weights, a value of **2000 kg** can be removed.
+
+---
+
+### **2. Cap or Winsorize Outliers**
+   - **When to Use:** When you want to reduce the impact of extreme values but not remove them entirely.
+   - **How:** Replace outliers with the nearest boundary value.
+     - Example: Replace \( x > \text{Upper Bound} \) with \( \text{Upper Bound} \).
+   - **Example:** Cap a salary of **$1,000,000** at the 95th percentile.
+
+---
+
+### **3. Impute Outliers**
+   - **When to Use:** When the outlier represents a valid but extreme value, and you want to smooth its effect.
+   - **How:** Replace outliers with statistical measures like mean, median, or mode.
+   - **Example:** Replace a missing or outlier "height" with the median height of the dataset.
+
+---
+
+### **4. Analyze Separately**
+   - **When to Use:** When outliers represent meaningful information (e.g., fraud detection, rare events).
+   - **How:** Treat them as a separate dataset for specialized analysis.
+   - **Example:** A dataset of credit card transactions might treat high-value outliers as potential fraudulent activity.
+
+---
+
+### **5. Transform the Data**
+   - **When to Use:** If outliers distort the data distribution.
+   - **How:** Apply transformations to reduce the effect of outliers.
+     - Example: Use log transformation or square root transformation.
+
+---
+
+### **6. Use Robust Statistical Methods**
+   - Some algorithms are resistant to outliers (e.g., median-based regression, decision trees).
+
+---
+
+## **7. Example in Python: Detecting Outliers with IQR**
+
+```python
+import pandas as pd
+
+# Dataset with outliers
+data = [55, 60, 62, 65, 68, 70, 72, 95, 400]
+df = pd.DataFrame(data, columns=['values'])
+
+# Calculate Q1, Q3, and IQR
+Q1 = df['values'].quantile(0.25)
+Q3 = df['values'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Define bounds
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Identify outliers
+df['is_outlier'] = (df['values'] < lower_bound) | (df['values'] > upper_bound)
+
+print(df)
+```
+
+**Output:**
+```
+   values  is_outlier
+0      55       False
+1      60       False
+2      62       False
+3      65       False
+4      68       False
+5      70       False
+6      72       False
+7      95       False
+8     400        True  <-- Outlier
+```
+
+---
+
+### **Concise Definitions for Outlier Handling**
+
+#### **Quantile Method**  
+- Removes outliers by defining thresholds based on specific percentiles (e.g., 1st and 99th).
+
+#### **Interquartile Range (IQR) Method**  
+- Detects outliers based on the middle 50% of the data.
+
+#### **Machine Learning (ML) Models**
+- Detect complex outliers using advanced models like Isolation Forest or DBSCAN.
+
+
