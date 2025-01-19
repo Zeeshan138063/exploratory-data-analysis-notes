@@ -45,12 +45,12 @@
 ---
 
 ## **5. GitHub Repository**
-**[Link to Workshop #1 Resources](#)**
+**[Link to Resources](https://github.com/muhammadibrahim313/Start-Your-Data-Science-Journey)**
 
 ---
 
 ## **6. Workshop Video**
-**[Watch the Workshop Video Here](https://example.com)**  
+**[Watch the Workshop Video Here](https://www.facebook.com/iCodeguru/videos/637344342386776)**  
 
 ---
 
