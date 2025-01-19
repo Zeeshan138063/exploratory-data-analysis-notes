@@ -170,7 +170,7 @@ Outliers are **data points that are significantly different from other observati
 
 ---
 
-## **5. How to Detect Outliers**
+## **9.1. How to Detect Outliers**
 
 ### **Statistical Methods**
 1. **Z-Score Method**:
@@ -193,7 +193,7 @@ Outliers are **data points that are significantly different from other observati
 
 ---
 
-## **6. How to Handle Outliers**
+## **9.2. How to Handle Outliers**
 
 Outlier handling is an essential part of EDA. Here are some common strategies:
 
